@@ -118,8 +118,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="divider-fade mt-14" />
-        <div className="flex flex-col items-center justify-between gap-4 pt-8 text-xs text-white/25 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 text-xs text-white/25 sm:flex-row">
           <p>
             &copy; {new Date().getFullYear()} Salon Sara. Alle Rechte
             vorbehalten.

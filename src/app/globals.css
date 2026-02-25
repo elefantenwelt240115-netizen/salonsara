@@ -236,7 +236,3 @@ body {
   background-clip: text;
 }
 
-.divider-fade {
-  height: 1px !important;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent) !important;
-}
