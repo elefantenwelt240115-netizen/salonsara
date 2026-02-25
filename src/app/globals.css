@@ -134,10 +134,11 @@ body {
 
 /* Typography */
 .section-heading {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
   line-height: 1.1;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
   color: var(--color-black);
   text-wrap: balance;
 }
@@ -236,6 +237,6 @@ body {
 }
 
 .divider-fade {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-gray-light), transparent);
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent) !important;
 }
