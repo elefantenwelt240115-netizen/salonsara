@@ -49,7 +49,7 @@ body {
 
 /* Font utilities */
 .font-heading {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
 }
 
 /* Section utilities */
