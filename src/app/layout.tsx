@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, Cinzel } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -35,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${dmSans.variable} scroll-smooth`}>
+    <html lang="de" className={`${dmSans.variable} ${cinzel.variable} scroll-smooth`}>
       <head>
         <link rel="icon" href="/logo.png" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/logo.png" media="(prefers-color-scheme: dark)" />
