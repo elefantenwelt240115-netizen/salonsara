@@ -87,7 +87,7 @@ const tabs: { key: ServiceCategory; label: string }[] = [
 
 function PriceRow({ item }: { item: ServiceItem }) {
   return (
-    <div className="group py-4 border-b border-gray-light/60 last:border-b-0">
+    <div className="price-row group py-4 border-b border-gray-light/60 last:border-b-0">
       <div className="flex items-baseline justify-between gap-4">
         <div className="min-w-0">
           <span className="text-[0.9375rem] text-black">{item.name}</span>

@@ -160,16 +160,60 @@ body {
   margin-top: 1.25rem;
 }
 
-/* Animations */
-@keyframes fadeInUp {
+/* ===== PREMIUM ANIMATION SYSTEM ===== */
+
+/* Clip-path line reveal — text rises from behind a clipping floor */
+@keyframes lineReveal {
   from {
+    clip-path: inset(0 0 100% 0);
     opacity: 0;
-    transform: translateY(30px);
   }
   to {
+    clip-path: inset(0 0 0% 0);
     opacity: 1;
-    transform: translateY(0);
   }
+}
+
+/* Horizontal wipe — tracks left to right */
+@keyframes wipeIn {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+}
+
+/* Gold line draws itself */
+@keyframes drawLine {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Subtle drift up */
+@keyframes driftUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll indicator pulse */
+@keyframes scrollPulse {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50%      { transform: translateY(6px); opacity: 1; }
+}
+
+/* Review crossfade */
+@keyframes reviewFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Legacy — keep for components that still use them */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
@@ -177,54 +221,127 @@ body {
   to { opacity: 1; }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* Hero animation classes */
+.animate-line-reveal {
+  animation: lineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+.animate-wipe-in {
+  animation: wipeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.animate-draw-line {
+  animation: drawLine 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: left center;
+  transform: scaleX(0);
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+.animate-drift-up {
+  animation: driftUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.animate-scroll-pulse {
+  animation: scrollPulse 2s ease-in-out infinite;
 }
 
-.animation-delay-100 {
-  animation-delay: 100ms;
+.review-enter {
+  animation: reviewFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animation-delay-200 {
-  animation-delay: 200ms;
+/* Scroll-triggered reveal system */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animation-delay-300 {
-  animation-delay: 300ms;
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.animation-delay-400 {
-  animation-delay: 400ms;
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animation-delay-500 {
-  animation-delay: 500ms;
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
-.animation-delay-600 {
-  animation-delay: 600ms;
+/* Price row hover micro-interaction */
+.price-row {
+  position: relative;
+  transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animation-delay-800 {
-  animation-delay: 800ms;
+.price-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left;
+  width: 2px;
+  height: 60%;
+  background: var(--color-gold);
+  border-radius: 1px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.price-row:hover {
+  padding-left: 12px;
+}
+
+.price-row:hover::before {
+  transform: translateY(-50%) scaleX(1);
+}
+
+/* Gallery card hover */
+.gallery-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-card .gallery-inner {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-card:hover .gallery-inner {
+  transform: scale(1.04);
+}
+
+.gallery-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gallery-card:hover .gallery-card-overlay {
+  opacity: 1;
+}
+
+.gallery-card-label {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease 0.1s, transform 0.4s cubic-bezier(0.16,1,0.3,1) 0.1s;
+}
+
+.gallery-card:hover .gallery-card-label {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Decorative */
@@ -236,3 +353,18 @@ body {
   background-clip: text;
 }
 
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-line-reveal,
+  .animate-wipe-in,
+  .animate-draw-line,
+  .animate-drift-up,
+  .reveal-up,
+  .reveal-scale {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
