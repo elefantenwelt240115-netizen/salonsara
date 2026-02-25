@@ -16,7 +16,7 @@ export default function Hero() {
         {/* Main heading — clip-path line reveal, one line */}
         <div className="overflow-hidden">
           <h1
-            className="mb-6 text-[clamp(2.8rem,8vw,7rem)] font-bold leading-[0.95] tracking-[0.14em] text-white uppercase animate-line-reveal whitespace-nowrap"
+            className="mb-6 text-[clamp(2.4rem,8vw,7rem)] font-bold leading-[0.95] tracking-[0.06em] sm:tracking-[0.14em] text-white uppercase animate-line-reveal whitespace-nowrap"
             style={{ animationDelay: "400ms", fontFamily: "var(--font-display)" }}
           >
             SALON SARA

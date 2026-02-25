@@ -88,23 +88,36 @@ const tabs: { key: ServiceCategory; label: string }[] = [
 function PriceRow({ item }: { item: ServiceItem }) {
   return (
     <div className="price-row group py-4 border-b border-gray-light/60 last:border-b-0">
-      <div className="flex items-baseline justify-between gap-4">
-        <div className="min-w-0">
-          <span className="text-[0.9375rem] text-black">{item.name}</span>
-          {item.note && <p className="mt-1 text-xs text-gray/70">{item.note}</p>}
-        </div>
-        <div className="flex shrink-0 items-baseline gap-4">
-          {item.prices ? (
-            <div className="flex gap-6 text-right text-[0.9375rem]">
+      {item.prices ? (
+        /* Multi-price: stack on mobile, row on sm+ */
+        <div>
+          <div className="flex items-baseline justify-between gap-4">
+            <span className="text-[0.9375rem] text-black">{item.name}</span>
+            <div className="hidden gap-6 text-right text-[0.9375rem] sm:flex">
               {item.prices.map((p, i) => (
                 <span key={i} className="min-w-[52px] font-medium text-black">{p}</span>
               ))}
             </div>
-          ) : (
-            <span className="text-[0.9375rem] font-medium text-black">{item.price}</span>
-          )}
+          </div>
+          {item.note && <p className="mt-1 text-xs text-gray/70">{item.note}</p>}
+          <div className="mt-2 flex gap-4 text-[0.8125rem] sm:hidden">
+            {item.prices.map((p, i) => (
+              <span key={i} className="font-medium text-black">
+                <span className="text-gray/50 text-[0.6875rem]">{["K", "M", "L"][i]} </span>{p}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        /* Single price: always row */
+        <div className="flex items-baseline justify-between gap-4">
+          <div className="min-w-0">
+            <span className="text-[0.9375rem] text-black">{item.name}</span>
+            {item.note && <p className="mt-1 text-xs text-gray/70">{item.note}</p>}
+          </div>
+          <span className="shrink-0 text-[0.9375rem] font-medium text-black">{item.price}</span>
+        </div>
+      )}
     </div>
   );
 }
@@ -145,7 +158,7 @@ export default function Services() {
         <div className="rounded-2xl border border-gray-light/60 bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] sm:p-10">
           {/* Length Legend for Damen */}
           {activeTab === "damen" && (
-            <div className="mb-6 flex justify-end gap-6 border-b border-gray-light/60 pb-4 text-xs font-semibold tracking-wide text-gray">
+            <div className="mb-6 hidden justify-end gap-6 border-b border-gray-light/60 pb-4 text-xs font-semibold tracking-wide text-gray sm:flex">
               <span>Kurz</span>
               <span>Mittel</span>
               <span>Lang</span>
