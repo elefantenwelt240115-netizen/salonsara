@@ -29,19 +29,14 @@ function CountUp({ end, suffix = "" }: { end: number; suffix?: string }) {
       },
       { threshold: 0.5 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, [end]);
 
   return (
     <div ref={ref} className="text-center">
-      <div
-        className="text-4xl text-black lg:text-5xl"
-        style={{ fontFamily: "var(--font-serif)" }}
-      >
-        {count}
-        {suffix}
+      <div className="font-heading text-4xl text-black lg:text-5xl">
+        {count}{suffix}
       </div>
     </div>
   );
@@ -49,47 +44,36 @@ function CountUp({ end, suffix = "" }: { end: number; suffix?: string }) {
 
 export default function About() {
   return (
-    <section id="ueber-uns" className="bg-warm-white py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+    <section id="ueber-uns" className="section-padding bg-warm-white">
+      <div className="mx-auto max-w-6xl">
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <p className="mb-3 text-xs tracking-[0.3em] text-gold uppercase">
-            Unser Salon
-          </p>
-          <h2
-            className="text-3xl tracking-[0.15em] text-black uppercase sm:text-4xl lg:text-5xl"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            Über Uns
-          </h2>
-          <div className="mx-auto mt-4 h-[1px] w-16 bg-gold" />
+        <div className="mb-16 text-center lg:mb-20">
+          <p className="section-label">Unser Salon</p>
+          <h2 className="section-heading">ÜBER UNS</h2>
+          <div className="gold-line mx-auto" />
         </div>
 
         {/* Content */}
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Image Placeholder */}
-          <div className="relative aspect-[4/5] overflow-hidden bg-cream">
+          <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl bg-cream lg:max-w-none" style={{ aspectRatio: "4/5" }}>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <div className="mb-4 text-6xl text-gold/30" style={{ fontFamily: "var(--font-serif)" }}>S</div>
-                <p className="text-sm tracking-wide text-gray">Salon Foto</p>
+                <div className="font-heading mb-3 text-6xl text-gold/20">S</div>
+                <p className="text-sm text-gray/60">Salon Foto</p>
               </div>
             </div>
-            {/* Decorative border */}
-            <div className="absolute inset-4 border border-gold/20" />
+            <div className="absolute inset-4 rounded-xl border border-gold/10" />
           </div>
 
           {/* Text Content */}
           <div>
-            <h3
-              className="mb-6 text-2xl leading-snug text-black lg:text-3xl"
-              style={{ fontFamily: "var(--font-serif)" }}
-            >
+            <h3 className="font-heading mb-6 text-2xl leading-snug lg:text-3xl">
               Wo Handwerk auf
               <br />
               Leidenschaft trifft
             </h3>
-            <div className="space-y-4 text-sm leading-relaxed text-gray">
+            <div className="space-y-5 text-[0.9375rem] leading-relaxed text-gray">
               <p>
                 Seit 2022 verwöhnen wir nicht nur Ihre Haare, sondern auch Ihr
                 Herz. Als Familienbetrieb – Vater und Sohn – liegt uns
@@ -108,22 +92,18 @@ export default function About() {
             </div>
 
             {/* Stats */}
-            <div className="mt-10 grid grid-cols-3 gap-6 border-t border-gray-light pt-10">
+            <div className="mt-12 grid grid-cols-3 gap-6 rounded-2xl border border-gray-light/80 bg-white p-8">
               <div className="text-center">
-                <CountUp end={624} suffix="+" />
-                <p className="mt-2 text-xs tracking-wide text-gray">
-                  Bewertungen
-                </p>
+                <CountUp end={989} suffix="+" />
+                <p className="mt-2 text-xs font-medium tracking-wide text-gray">Bewertungen</p>
               </div>
               <div className="text-center">
                 <CountUp end={5} suffix=".0" />
-                <p className="mt-2 text-xs tracking-wide text-gray">Sterne</p>
+                <p className="mt-2 text-xs font-medium tracking-wide text-gray">Sterne</p>
               </div>
               <div className="text-center">
                 <CountUp end={2} />
-                <p className="mt-2 text-xs tracking-wide text-gray">
-                  Standorte
-                </p>
+                <p className="mt-2 text-xs font-medium tracking-wide text-gray">Standorte</p>
               </div>
             </div>
           </div>

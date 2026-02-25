@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -8,8 +8,7 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-const dmSerif = DM_Serif_Display({
-  weight: "400",
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
@@ -18,13 +17,19 @@ const dmSerif = DM_Serif_Display({
 export const metadata: Metadata = {
   title: "Salon Sara | Ihr Friseur in Solingen",
   description:
-    "Salon Sara - Ihr Familienfriseur an der Hauptstraße in Solingen. Haarschnitte, Färben, Bart, Braut-Styling & mehr. 624+ Google-Bewertungen mit 5.0 Sternen.",
+    "Salon Sara - Ihr Familienfriseur an der Hauptstraße in Solingen. Haarschnitte, Färben, Bart, Braut-Styling & mehr. 989+ Google-Bewertungen mit 5.0 Sternen.",
   keywords:
     "Friseur Solingen, Salon Sara, Haarschnitt Solingen, Balayage, Herrenfriseur, Damenfriseur, Bart, Braut Solingen",
+  icons: {
+    icon: [
+      { url: "/logo.png", type: "image/png" },
+    ],
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Salon Sara | Ihr Friseur in Solingen",
     description:
-      "Seit 2022 verwöhnen wir nicht nur Ihre Haare, sondern auch Ihr Herz. 624+ Bewertungen · 5.0 Sterne.",
+      "Seit 2022 verwöhnen wir nicht nur Ihre Haare, sondern auch Ihr Herz. 989+ Bewertungen · 5.0 Sterne.",
     type: "website",
     locale: "de_DE",
   },
@@ -36,7 +41,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${dmSans.variable} ${dmSerif.variable} scroll-smooth`}>
+    <html lang="de" className={`${dmSans.variable} ${playfair.variable} scroll-smooth`}>
+      <head>
+        <link rel="icon" href="/logo.png" media="(prefers-color-scheme: light)" />
+        <link rel="icon" href="/logo.png" media="(prefers-color-scheme: dark)" />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );
