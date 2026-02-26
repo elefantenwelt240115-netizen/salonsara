@@ -1,8 +1,22 @@
 export default function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-dark">
-      {/* Radial ambient light */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(184,149,106,0.08)_0%,transparent_65%)]" />
+      {/* Background image — dezent, nicht verpixelt */}
+      <img
+        src="/images/geschäft.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover scale-105"
+        style={{ filter: "brightness(0.25) saturate(0.6)" }}
+      />
+      {/* Dark gradient overlay for text readability */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.4) 40%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.85) 100%)",
+        }}
+      />
+      {/* Radial ambient gold light */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(184,149,106,0.1)_0%,transparent_65%)]" />
 
       <div className="relative z-10 flex flex-col items-center px-8 text-center">
         {/* Label — horizontal wipe */}
