@@ -58,16 +58,28 @@ export default function About() {
 
         {/* Content */}
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          {/* Image Placeholder */}
+          {/* Team Photo */}
           <RevealSection variant="scale">
-            <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl bg-cream lg:max-w-none" style={{ aspectRatio: "4/5" }}>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="mb-3 text-6xl font-bold text-gold/20">S</div>
-                  <p className="text-sm text-gray/60">Salon Foto</p>
-                </div>
-              </div>
-              <div className="absolute inset-4 rounded-xl border border-gold/10" />
+            <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl lg:max-w-none" style={{ aspectRatio: "3/4" }}>
+              <img
+                src="/images/team.jpg"
+                alt="Das Salon Sara Team"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              {/* Gold gradient overlay bottom to top */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: "linear-gradient(to top, rgba(184,149,106,0.85) 0%, rgba(184,149,106,0.4) 25%, rgba(184,149,106,0.08) 50%, transparent 70%)",
+                }}
+              />
+              {/* Optional subtle vignette for depth */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: "radial-gradient(ellipse at center, transparent 50%, rgba(26,26,26,0.15) 100%)",
+                }}
+              />
             </div>
           </RevealSection>
 

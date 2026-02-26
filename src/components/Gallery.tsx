@@ -4,12 +4,12 @@ import RevealSection from "./RevealSection";
 
 export default function Gallery() {
   const galleryItems = [
-    { id: 1, aspect: "aspect-[3/4]", label: "Balayage" },
-    { id: 2, aspect: "aspect-square", label: "Herrenschnitt" },
-    { id: 3, aspect: "aspect-[3/4]", label: "Braut-Styling" },
-    { id: 4, aspect: "aspect-square", label: "Salon Interior" },
-    { id: 5, aspect: "aspect-[3/4]", label: "Färbung" },
-    { id: 6, aspect: "aspect-square", label: "Bartpflege" },
+    { id: 1, aspect: "aspect-[3/4]", label: "Locken & Schnitt", image: "/images/gallery/locken-blond.jpg" },
+    { id: 2, aspect: "aspect-square", label: "Herrenschnitt", image: "/images/gallery/maennerhaare.jpg" },
+    { id: 3, aspect: "aspect-[3/4]", label: "Braut-Styling", image: null },
+    { id: 4, aspect: "aspect-square", label: "Salon Interior", image: null },
+    { id: 5, aspect: "aspect-[3/4]", label: "Färbung", image: null },
+    { id: 6, aspect: "aspect-square", label: "Bartpflege", image: null },
   ];
 
   return (
@@ -29,9 +29,17 @@ export default function Gallery() {
           {galleryItems.map((item, index) => (
             <RevealSection key={item.id} variant="scale" delay={index * 80}>
               <div className={`gallery-card rounded-2xl bg-cream ${item.aspect} cursor-pointer`}>
-                <div className="gallery-inner absolute inset-0 flex items-center justify-center">
-                  <div className="text-3xl font-bold text-gold/15 lg:text-5xl">S</div>
-                </div>
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.label}
+                    className="absolute inset-0 h-full w-full object-cover rounded-2xl"
+                  />
+                ) : (
+                  <div className="gallery-inner absolute inset-0 flex items-center justify-center">
+                    <div className="text-3xl font-bold text-gold/15 lg:text-5xl">S</div>
+                  </div>
+                )}
                 <div className="gallery-card-overlay rounded-2xl" />
                 <div className="gallery-card-label">
                   <span className="text-xs font-semibold tracking-[0.12em] text-white uppercase">{item.label}</span>
