@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useCookieConsent } from "./CookieConsent";
 
 export default function Footer() {
+  const { reset } = useCookieConsent();
+
   return (
     <footer className="bg-dark">
       <div className="mx-auto max-w-6xl px-6 py-16 lg:px-10 lg:py-20">
@@ -144,6 +149,12 @@ export default function Footer() {
             >
               Datenschutz
             </Link>
+            <button
+              onClick={reset}
+              className="transition-colors duration-300 hover:text-gold"
+            >
+              Cookie-Einstellungen
+            </button>
           </div>
         </div>
       </div>
