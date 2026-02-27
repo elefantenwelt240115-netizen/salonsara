@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Image
               src="/logo.png"
-              alt="Salon Sara"
+              alt="Salon Sara Logo"
               width={44}
               height={44}
               className="brightness-0 invert"
@@ -131,18 +132,18 @@ export default function Footer() {
             vorbehalten.
           </p>
           <div className="flex gap-6">
-            <a
+            <Link
               href="/impressum"
               className="transition-colors duration-300 hover:text-gold"
             >
               Impressum
-            </a>
-            <a
+            </Link>
+            <Link
               href="/datenschutz"
               className="transition-colors duration-300 hover:text-gold"
             >
               Datenschutz
-            </a>
+            </Link>
           </div>
         </div>
       </div>

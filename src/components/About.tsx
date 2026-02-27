@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import RevealSection from "./RevealSection";
 
 function CountUp({ end, suffix = "" }: { end: number; suffix?: string }) {
@@ -61,10 +62,12 @@ export default function About() {
           {/* Team Photo */}
           <RevealSection variant="scale">
             <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl lg:max-w-none" style={{ aspectRatio: "3/4" }}>
-              <img
+              <Image
                 src="/images/team.jpg"
-                alt="Das Salon Sara Team"
-                className="absolute inset-0 h-full w-full object-cover"
+                alt="Das Salon Sara Team – Familienfriseur in Solingen-Mitte"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
               {/* Gold gradient overlay bottom to top */}
               <div

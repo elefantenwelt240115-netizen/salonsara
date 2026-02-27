@@ -6,17 +6,31 @@ export const metadata = {
   alternates: { canonical: "/impressum" },
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Startseite", item: "https://salonsara.de" },
+    { "@type": "ListItem", position: 2, name: "Impressum", item: "https://salonsara.de/impressum" },
+  ],
+};
+
 export default function Impressum() {
   return (
     <div className="min-h-screen bg-warm-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Header */}
       <div className="bg-dark py-20 text-center">
-        <Link
-          href="/"
-          className="mb-6 inline-block text-xs tracking-[0.3em] text-gold uppercase hover:text-gold-light"
-        >
-          &larr; Zurück zur Startseite
-        </Link>
+        <nav aria-label="Breadcrumb" className="mb-6 flex items-center justify-center gap-2 text-xs tracking-[0.15em] uppercase">
+          <Link href="/" className="text-white/40 transition-colors hover:text-gold">
+            Startseite
+          </Link>
+          <span className="text-white/20">/</span>
+          <span className="text-gold">Impressum</span>
+        </nav>
         <h1
           className="text-3xl tracking-[0.15em] text-white uppercase sm:text-4xl"
           style={{ fontFamily: "var(--font-display)" }}

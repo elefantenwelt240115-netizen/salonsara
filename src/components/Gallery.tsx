@@ -1,15 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import RevealSection from "./RevealSection";
 
 export default function Gallery() {
   const galleryItems = [
-    { id: 1, aspect: "aspect-[3/4]", label: "Locken & Schnitt", image: "/images/gallery/locken-blond.jpg" },
-    { id: 2, aspect: "aspect-square", label: "Herrenschnitt", image: "/images/gallery/maennerhaare.jpg" },
-    { id: 3, aspect: "aspect-[3/4]", label: "Braut-Styling", image: null },
-    { id: 4, aspect: "aspect-square", label: "Salon Interior", image: null },
-    { id: 5, aspect: "aspect-[3/4]", label: "Färbung", image: null },
-    { id: 6, aspect: "aspect-square", label: "Bartpflege", image: null },
+    { id: 1, aspect: "aspect-[3/4]", label: "Locken & Schnitt", image: "/images/gallery/locken-blond.jpg", alt: "Blonde Locken mit Haarschnitt – Salon Sara Solingen" },
+    { id: 2, aspect: "aspect-square", label: "Herrenschnitt", image: "/images/gallery/maennerhaare.jpg", alt: "Moderner Herrenschnitt – Salon Sara Solingen" },
+    { id: 3, aspect: "aspect-[3/4]", label: "Braut-Styling", image: null, alt: "Braut-Styling" },
+    { id: 4, aspect: "aspect-square", label: "Salon Interior", image: null, alt: "Salon Interior" },
+    { id: 5, aspect: "aspect-[3/4]", label: "Färbung", image: null, alt: "Haarfärbung" },
+    { id: 6, aspect: "aspect-square", label: "Bartpflege", image: null, alt: "Bartpflege" },
   ];
 
   return (
@@ -30,10 +31,12 @@ export default function Gallery() {
             <RevealSection key={item.id} variant="scale" delay={index * 80}>
               <div className={`gallery-card rounded-2xl bg-cream ${item.aspect} cursor-pointer`}>
                 {item.image ? (
-                  <img
+                  <Image
                     src={item.image}
-                    alt={item.label}
-                    className="absolute inset-0 h-full w-full object-cover rounded-2xl"
+                    alt={item.alt}
+                    fill
+                    className="object-cover rounded-2xl"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="gallery-inner absolute inset-0 flex items-center justify-center">

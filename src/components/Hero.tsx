@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Hero() {
   const [showCallPopup, setShowCallPopup] = useState(false);
@@ -8,11 +9,14 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-dark">
       {/* Background image — dezent, nicht verpixelt */}
-      <img
+      <Image
         src="/images/geschäft.jpg"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover scale-105"
+        alt="Salon Sara Friseursalon in Solingen von außen"
+        fill
+        priority
+        className="object-cover scale-105"
         style={{ filter: "brightness(0.25) saturate(0.6)" }}
+        sizes="100vw"
       />
       {/* Dark gradient overlay for text readability */}
       <div

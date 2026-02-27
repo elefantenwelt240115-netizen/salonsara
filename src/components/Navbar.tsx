@@ -39,7 +39,7 @@ export default function Navbar() {
           <a href="#" className="relative z-[60]">
             <Image
               src="/logo.png"
-              alt="Salon Sara"
+              alt="Salon Sara – Friseur Solingen"
               width={42}
               height={42}
               className={`transition-all duration-500 ${scrolled ? "" : "brightness-0 invert"}`}

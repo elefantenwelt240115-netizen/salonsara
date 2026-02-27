@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Cinzel } from "next/font/google";
+import Providers from "@/components/Providers";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -43,6 +44,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://salonsara.de"),
   alternates: {
     canonical: "/",
+    languages: {
+      "de-DE": "/",
+    },
   },
   icons: {
     icon: [{ url: "/logo.png", type: "image/png" }],
@@ -96,6 +100,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo.png" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/logo.png" media="(prefers-color-scheme: dark)" />
+        {/* Google Search Console – Platzhalter: Ersetze DEIN_CODE mit dem echten Verifizierungscode */}
+        {/* <meta name="google-site-verification" content="DEIN_CODE" /> */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -191,7 +197,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

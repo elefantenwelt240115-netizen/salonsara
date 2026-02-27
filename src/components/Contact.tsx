@@ -1,8 +1,11 @@
 "use client";
 
 import RevealSection from "./RevealSection";
+import { useCookieConsent } from "./CookieConsent";
 
 export default function Contact() {
+  const { consent, accept } = useCookieConsent();
+
   return (
     <section id="kontakt" className="section-padding bg-warm-white">
       <div className="mx-auto max-w-6xl">
@@ -19,17 +22,46 @@ export default function Contact() {
           {/* Map */}
           <RevealSection variant="scale">
             <div className="relative overflow-hidden rounded-2xl bg-cream h-[400px] lg:h-full lg:min-h-[500px]">
-              <iframe
-                src="https://maps.google.com/maps?q=Salon+Sara+Hauptstra%C3%9Fe+39+42651+Solingen&t=&z=17&ie=UTF8&iwloc=B&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Salon Sara Standort"
-                className="absolute inset-0"
-              />
+              {consent === "accepted" ? (
+                <iframe
+                  src="https://maps.google.com/maps?q=Salon+Sara+Hauptstra%C3%9Fe+39+42651+Solingen&t=&z=17&ie=UTF8&iwloc=B&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Salon Sara Standort"
+                  className="absolute inset-0"
+                />
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-dark/95 p-6 text-center">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8956A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  </div>
+                  <p className="mb-1 text-sm font-semibold text-white">Google Maps</p>
+                  <p className="mb-5 max-w-xs text-xs leading-relaxed text-white/40">
+                    Zum Anzeigen der Karte werden Cookies von Google benötigt.
+                  </p>
+                  <button
+                    onClick={accept}
+                    className="rounded-full bg-gradient-to-r from-gold to-gold-dark px-5 py-2.5 text-xs font-semibold tracking-wide text-white transition-all hover:shadow-lg hover:shadow-gold/25"
+                  >
+                    Karte laden
+                  </button>
+                  <a
+                    href="https://maps.google.com/?q=Salon+Sara+Hauptstraße+39+42651+Solingen"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 text-xs text-gold/60 underline underline-offset-2 transition-colors hover:text-gold"
+                  >
+                    In Google Maps öffnen
+                  </a>
+                </div>
+              )}
             </div>
           </RevealSection>
 
