@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useCookieConsent } from "./CookieConsent";
 
 export default function CookieBanner() {
-  const { consent, accept, reject } = useCookieConsent();
+  const { consent, mounted, accept, reject } = useCookieConsent();
 
-  if (consent !== "pending") return null;
+  if (!mounted || consent !== "pending") return null;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[100] p-3 sm:p-4">

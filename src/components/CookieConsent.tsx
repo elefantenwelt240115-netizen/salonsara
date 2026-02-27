@@ -6,11 +6,13 @@ type ConsentState = "pending" | "accepted" | "rejected";
 
 const CookieConsentContext = createContext<{
   consent: ConsentState;
+  mounted: boolean;
   accept: () => void;
   reject: () => void;
   reset: () => void;
 }>({
   consent: "pending",
+  mounted: false,
   accept: () => {},
   reject: () => {},
   reset: () => {},
@@ -49,12 +51,8 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
     localStorage.removeItem(STORAGE_KEY);
   }, []);
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
   return (
-    <CookieConsentContext.Provider value={{ consent, accept, reject, reset }}>
+    <CookieConsentContext.Provider value={{ consent, mounted, accept, reject, reset }}>
       {children}
     </CookieConsentContext.Provider>
   );
