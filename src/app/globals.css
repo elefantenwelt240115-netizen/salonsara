@@ -353,12 +353,48 @@ body {
   background-clip: text;
 }
 
+/* ===== 404 PAGE ANIMATIONS ===== */
+
+/* Scissors snipping */
+@keyframes scissorsLeft {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+
+@keyframes scissorsRight {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-15deg); }
+}
+
+@keyframes hairFall {
+  0% { opacity: 0; transform: translateY(-8px); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(24px); }
+}
+
+.animate-scissors-left {
+  transform-origin: 60px 52px;
+  animation: scissorsLeft 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-scissors-right {
+  transform-origin: 60px 52px;
+  animation: scissorsRight 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-hair-fall {
+  animation: hairFall 1.6s ease-in infinite;
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .animate-line-reveal,
   .animate-wipe-in,
   .animate-draw-line,
   .animate-drift-up,
+  .animate-scissors-left,
+  .animate-scissors-right,
+  .animate-hair-fall,
   .reveal-up,
   .reveal-scale {
     animation: none !important;
