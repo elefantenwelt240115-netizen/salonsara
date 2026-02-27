@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-type ServiceCategory = "damen" | "herren" | "beauty";
+type ServiceCategory = "damen" | "herren" | "kosmetik" | "kinder";
 
 interface ServiceItem {
   name: string;
@@ -28,25 +28,19 @@ const serviceData: Record<ServiceCategory, ServiceGroup[]> = {
     {
       title: "Farbe",
       items: [
-        { name: "Global Farbe", prices: ["36 €", "46 €", "56 €"] },
         { name: "Foliensträhnen", prices: ["35 €", "48 €", "70 €"] },
-        { name: "Ansatz Farbe", price: "ab 30 €" },
         { name: "Balayage", price: "ab 160 €" },
+        { name: "Ansatz Farbe", price: "ab 30 €" },
+        { name: "Global Farbe", prices: ["36 €", "46 €", "70 €"] },
       ],
     },
     {
-      title: "Styling",
+      title: "Styling & Specials",
       items: [
         { name: "Dauerwelle", prices: ["42 €", "65 €", "75 €"] },
-        { name: "Hochsteckfrisur", price: "ab 99 €" },
-      ],
-    },
-    {
-      title: "Specials",
-      items: [
-        { name: "Braut-Paket", price: "250 €" },
-        { name: "Make-up", price: "ab 49 €" },
-        { name: "Extensions & Keratin", note: "Tape / Clip / Bonding / Microring / Keratin-Glättung", price: "auf Anfrage" },
+        { name: "Hochsteckfrisur", price: "Nach Absprache" },
+        { name: "Haarverlängerung", price: "Nach Absprache" },
+        { name: "Keratin-Glättung", price: "Nach Absprache" },
       ],
     },
   ],
@@ -59,14 +53,14 @@ const serviceData: Record<ServiceCategory, ServiceGroup[]> = {
       ],
     },
     {
-      title: "Farbe & Bart",
+      title: "Bart & Farbe",
       items: [
+        { name: "Bart Rasur", price: "12 €" },
         { name: "Färben", price: "ab 20 €" },
-        { name: "Bart rasieren", price: "auf Anfrage" },
       ],
     },
   ],
-  beauty: [
+  kosmetik: [
     {
       title: "Augenbrauen & Gesicht",
       items: [
@@ -77,12 +71,24 @@ const serviceData: Record<ServiceCategory, ServiceGroup[]> = {
       ],
     },
   ],
+  kinder: [
+    {
+      title: "Trockenhaarschnitt",
+      items: [
+        { name: "Jungen bis 12 Jahren", price: "14 €" },
+        { name: "Jungen bis 16 Jahren", price: "16 €" },
+        { name: "Mädchen bis 12 Jahren", price: "16 €" },
+        { name: "Mädchen bis 16 Jahren", price: "18 €" },
+      ],
+    },
+  ],
 };
 
 const tabs: { key: ServiceCategory; label: string }[] = [
   { key: "damen", label: "Damen" },
   { key: "herren", label: "Herren" },
-  { key: "beauty", label: "Beauty" },
+  { key: "kosmetik", label: "Kosmetik" },
+  { key: "kinder", label: "Kinder" },
 ];
 
 function PriceRow({ item }: { item: ServiceItem }) {

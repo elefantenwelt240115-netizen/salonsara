@@ -65,7 +65,7 @@ export default function Hero() {
             Jetzt Anrufen
           </a>
           <a
-            href="https://wa.me/4921224926647"
+            href="https://wa.me/4917662001566"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary !border-white/20 !text-white/80 hover:!border-gold hover:!text-gold"

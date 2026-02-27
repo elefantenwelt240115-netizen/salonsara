@@ -35,7 +35,13 @@ export default function Footer() {
                 href="tel:+4921224926647"
                 className="block transition-colors duration-300 hover:text-gold"
               >
-                0212 24 92 66 47
+                Filiale 1: 0212 – 249 266 47
+              </a>
+              <a
+                href="tel:+4921212858200"
+                className="block transition-colors duration-300 hover:text-gold"
+              >
+                Filiale 2: 0212 – 128 582 00
               </a>
             </div>
           </div>
@@ -46,7 +52,8 @@ export default function Footer() {
               Öffnungszeiten
             </h4>
             <div className="space-y-2.5 text-sm text-white/40">
-              <p>Mo – Sa: 07:00 – 21:00</p>
+              <p>Mo – Sa: 06:00 – 21:00</p>
+              <p className="text-[0.6875rem] text-white/25">06–08 & 19–21 Uhr nur mit Termin</p>
               <p>So: Geschlossen</p>
             </div>
           </div>
