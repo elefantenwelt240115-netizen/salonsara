@@ -18,7 +18,7 @@ export default function Contact() {
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Map */}
           <RevealSection variant="scale">
-            <div className="relative overflow-hidden rounded-2xl bg-cream" style={{ minHeight: "400px" }}>
+            <div className="relative overflow-hidden rounded-2xl bg-cream h-[400px] lg:h-full lg:min-h-[500px]">
               <iframe
                 src="https://maps.google.com/maps?q=Salon+Sara+Hauptstra%C3%9Fe+39+42651+Solingen&t=&z=17&ie=UTF8&iwloc=B&output=embed"
                 width="100%"
