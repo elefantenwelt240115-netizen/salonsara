@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Impressum | Salon Sara",
+  title: "Impressum",
+  description: "Impressum von Salon Sara – Friseur in Solingen. Angaben gemäß § 5 TMG.",
+  alternates: { canonical: "/impressum" },
 };
 
 export default function Impressum() {
@@ -17,7 +19,7 @@ export default function Impressum() {
         </Link>
         <h1
           className="text-3xl tracking-[0.15em] text-white uppercase sm:text-4xl"
-          style={{ fontFamily: "var(--font-serif)" }}
+          style={{ fontFamily: "var(--font-display)" }}
         >
           Impressum
         </h1>
@@ -27,7 +29,7 @@ export default function Impressum() {
       <div className="mx-auto max-w-3xl px-6 py-16 lg:px-12">
         <div className="space-y-8 text-sm leading-relaxed text-gray">
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               Angaben gemäß § 5 TMG
             </h2>
             <p>
@@ -42,7 +44,7 @@ export default function Impressum() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               Kontakt
             </h2>
             <p>
@@ -53,7 +55,7 @@ export default function Impressum() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               Umsatzsteuer-ID
             </h2>
             <p>
@@ -63,7 +65,7 @@ export default function Impressum() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               Streitschlichtung
             </h2>
             <p>
@@ -75,7 +77,7 @@ export default function Impressum() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               Haftung für Inhalte
             </h2>
             <p>

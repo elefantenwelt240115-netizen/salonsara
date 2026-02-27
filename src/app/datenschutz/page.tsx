@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Datenschutz | Salon Sara",
+  title: "Datenschutz",
+  description: "Datenschutzerklärung von Salon Sara – Friseur in Solingen. Informationen zum Umgang mit Ihren Daten.",
+  alternates: { canonical: "/datenschutz" },
 };
 
 export default function Datenschutz() {
@@ -17,7 +19,7 @@ export default function Datenschutz() {
         </Link>
         <h1
           className="text-3xl tracking-[0.15em] text-white uppercase sm:text-4xl"
-          style={{ fontFamily: "var(--font-serif)" }}
+          style={{ fontFamily: "var(--font-display)" }}
         >
           Datenschutz
         </h1>
@@ -27,7 +29,7 @@ export default function Datenschutz() {
       <div className="mx-auto max-w-3xl px-6 py-16 lg:px-12">
         <div className="space-y-8 text-sm leading-relaxed text-gray">
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               1. Datenschutz auf einen Blick
             </h2>
             <p>
@@ -39,7 +41,7 @@ export default function Datenschutz() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               2. Verantwortlicher
             </h2>
             <p>
@@ -58,7 +60,7 @@ export default function Datenschutz() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               3. Datenerfassung auf dieser Website
             </h2>
             <p>
@@ -78,7 +80,7 @@ export default function Datenschutz() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               4. Google Maps
             </h2>
             <p>
@@ -91,7 +93,7 @@ export default function Datenschutz() {
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-serif)" }}>
+            <h2 className="mb-3 text-lg text-black" style={{ fontFamily: "var(--font-display)" }}>
               5. Ihre Rechte
             </h2>
             <p>
