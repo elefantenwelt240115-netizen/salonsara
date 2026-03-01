@@ -84,7 +84,7 @@ export default function Contact() {
                   <div className="space-y-3 text-[0.9375rem]">
                     <div className="flex justify-between rounded-xl bg-gray-lighter p-4">
                       <span className="text-gray">Montag – Samstag</span>
-                      <span className="font-medium text-black">06:00 – 21:00 Uhr</span>
+                      <span className="font-medium text-black">08:00 – 19:00 Uhr</span>
                     </div>
                     <div className="rounded-xl bg-gray-lighter p-4">
                       <div className="flex justify-between">

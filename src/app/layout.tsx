@@ -129,8 +129,8 @@ export default function RootLayout({
                 {
                   "@type": "OpeningHoursSpecification",
                   dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  opens: "06:00",
-                  closes: "21:00",
+                  opens: "08:00",
+                  closes: "19:00",
                 },
               ],
               aggregateRating: {
