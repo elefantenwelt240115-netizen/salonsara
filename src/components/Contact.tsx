@@ -82,9 +82,17 @@ export default function Contact() {
                 <div>
                   <h3 className="mb-3 text-[0.6875rem] font-semibold tracking-[0.25em] text-gold uppercase">Öffnungszeiten</h3>
                   <div className="space-y-3 text-[0.9375rem]">
-                    <div className="flex justify-between rounded-xl bg-gray-lighter p-4">
-                      <span className="text-gray">Montag – Samstag</span>
-                      <span className="font-medium text-black">08:00 – 19:00 Uhr</span>
+                    <div className="rounded-xl bg-gray-lighter p-4">
+                      <div className="flex justify-between">
+                        <span className="text-gray">Mit Termin</span>
+                        <span className="font-medium text-black">06:00 – 21:00 Uhr</span>
+                      </div>
+                    </div>
+                    <div className="rounded-xl bg-gray-lighter p-4">
+                      <div className="flex justify-between">
+                        <span className="text-gray">Mit & ohne Termin</span>
+                        <span className="font-medium text-black">08:00 – 19:00 Uhr</span>
+                      </div>
                     </div>
                     <div className="rounded-xl bg-gray-lighter p-4">
                       <div className="flex justify-between">
@@ -92,7 +100,6 @@ export default function Contact() {
                         <span className="font-medium text-black">Geschlossen</span>
                       </div>
                     </div>
-                    <p className="mt-1 text-xs text-gray/70">06:00 – 08:00 & 19:00 – 21:00 Uhr nur mit festem Termin</p>
                   </div>
                 </div>
 

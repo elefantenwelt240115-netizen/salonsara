@@ -58,8 +58,8 @@ export default function Footer() {
               Öffnungszeiten
             </h4>
             <div className="space-y-2.5 text-sm text-white/40">
-              <p>Mo – Sa: 08:00 – 19:00</p>
-              <p className="text-[0.6875rem] text-white/25">06–08 & 19–21 Uhr nur mit Termin</p>
+              <p>Mit Termin: 06:00 – 21:00</p>
+              <p>Mit & ohne Termin: 08:00 – 19:00</p>
               <p>So: Geschlossen</p>
             </div>
           </div>

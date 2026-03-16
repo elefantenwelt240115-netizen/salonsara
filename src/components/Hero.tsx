@@ -102,7 +102,7 @@ export default function Hero() {
               </svg>
             ))}
           </div>
-          <span className="text-xs tracking-wide text-white/40">5.0 &middot; 989+ Bewertungen</span>
+          <span className="text-xs tracking-wide text-white/40">5.0 &middot; 1.000+ Bewertungen</span>
         </div>
       </div>
 
