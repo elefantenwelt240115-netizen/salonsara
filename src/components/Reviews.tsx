@@ -85,7 +85,7 @@ export default function Reviews() {
                     ))}
                   </div>
                 </div>
-                <p className="text-xs text-gray">989+ Bewertungen auf Google</p>
+                <p className="text-xs text-gray">1.000+ Bewertungen auf Google</p>
               </div>
             </div>
           </div>

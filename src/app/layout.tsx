@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Salon Sara Solingen",
   },
   description:
-    "Salon Sara – Ihr Familienfriseur in Solingen-Mitte. Damen- & Herrenhaarschnitte, Balayage, Foliensträhnen, Bartpflege, Keratin-Glättung & Braut-Styling. 989+ Google-Bewertungen ★ 5.0 Sterne. Jetzt Termin vereinbaren!",
+    "Salon Sara – Ihr Familienfriseur in Solingen-Mitte. Damen- & Herrenhaarschnitte, Balayage, Foliensträhnen, Bartpflege, Keratin-Glättung & Braut-Styling. 1.000+ Google-Bewertungen ★ 5.0 Sterne. Jetzt Termin vereinbaren!",
   keywords: [
     "Friseur Solingen",
     "Salon Sara",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Salon Sara | Friseur Solingen – Damen, Herren & Kinder",
     description:
-      "Ihr Familienfriseur in Solingen-Mitte. Damen- & Herrenhaarschnitte, Balayage, Bartpflege & mehr. 989+ Bewertungen · 5.0 Sterne.",
+      "Ihr Familienfriseur in Solingen-Mitte. Damen- & Herrenhaarschnitte, Balayage, Bartpflege & mehr. 1.000+ Bewertungen · 5.0 Sterne.",
     type: "website",
     locale: "de_DE",
     url: "https://salonsara.de",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Salon Sara | Friseur Solingen",
     description:
-      "Ihr Familienfriseur in Solingen-Mitte. Damen, Herren & Kinder. 989+ Bewertungen · 5.0 Sterne.",
+      "Ihr Familienfriseur in Solingen-Mitte. Damen, Herren & Kinder. 1.000+ Bewertungen · 5.0 Sterne.",
     images: ["/images/team.jpg"],
   },
   robots: {
@@ -129,14 +129,14 @@ export default function RootLayout({
                 {
                   "@type": "OpeningHoursSpecification",
                   dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  opens: "08:00",
-                  closes: "19:00",
+                  opens: "06:00",
+                  closes: "21:00",
                 },
               ],
               aggregateRating: {
                 "@type": "AggregateRating",
                 ratingValue: "5.0",
-                reviewCount: "989",
+                reviewCount: "1000",
                 bestRating: "5",
                 worstRating: "1",
               },

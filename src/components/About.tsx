@@ -115,7 +115,7 @@ export default function About() {
               {/* Stats */}
               <div className="mt-12 grid grid-cols-3 gap-6 rounded-2xl border border-gray-light/80 bg-white p-8">
                 {[
-                  { end: 989, suffix: "+", label: "Bewertungen" },
+                  { end: 1000, suffix: "+", label: "Bewertungen" },
                   { end: 5, suffix: ".0", label: "Sterne" },
                   { end: 2, suffix: "", label: "Standorte" },
                 ].map((stat, i) => (
