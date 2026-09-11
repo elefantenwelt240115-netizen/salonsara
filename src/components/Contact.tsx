@@ -2,8 +2,13 @@
 
 import RevealSection from "./RevealSection";
 import { useCookieConsent } from "./CookieConsent";
+import type { OpeningHoursEntry } from "@/lib/site-content";
 
-export default function Contact() {
+export default function Contact({
+  openingHours,
+}: {
+  openingHours: OpeningHoursEntry[];
+}) {
   const { consent, accept } = useCookieConsent();
 
   return (
@@ -82,24 +87,14 @@ export default function Contact() {
                 <div>
                   <h3 className="mb-3 text-[0.6875rem] font-semibold tracking-[0.25em] text-gold uppercase">Öffnungszeiten</h3>
                   <div className="space-y-3 text-[0.9375rem]">
-                    <div className="rounded-xl bg-gray-lighter p-4">
-                      <div className="flex justify-between">
-                        <span className="text-gray">Mit Termin</span>
-                        <span className="font-medium text-black">06:00 – 21:00 Uhr</span>
+                    {openingHours.map((entry) => (
+                      <div key={entry.id} className="rounded-xl bg-gray-lighter p-4">
+                        <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-4">
+                          <span className="text-gray">{entry.label}</span>
+                          <span className="font-medium text-black sm:text-right">{entry.value}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="rounded-xl bg-gray-lighter p-4">
-                      <div className="flex justify-between">
-                        <span className="text-gray">Mit & ohne Termin</span>
-                        <span className="font-medium text-black">08:00 – 19:00 Uhr</span>
-                      </div>
-                    </div>
-                    <div className="rounded-xl bg-gray-lighter p-4">
-                      <div className="flex justify-between">
-                        <span className="text-gray">Sonntag</span>
-                        <span className="font-medium text-black">Geschlossen</span>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 

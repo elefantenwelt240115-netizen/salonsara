@@ -118,7 +118,7 @@ export default function About() {
                   { end: 1000, suffix: "+", label: "Bewertungen" },
                   { end: 5, suffix: ".0", label: "Sterne" },
                   { end: 2, suffix: "", label: "Standorte" },
-                ].map((stat, i) => (
+                ].map((stat) => (
                   <div key={stat.label} className="text-center">
                     <CountUp end={stat.end} suffix={stat.suffix} />
                     <p className="mt-2 text-xs font-medium tracking-wide text-gray">{stat.label}</p>

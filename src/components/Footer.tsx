@@ -3,8 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCookieConsent } from "./CookieConsent";
+import type { OpeningHoursEntry } from "@/lib/site-content";
 
-export default function Footer() {
+export default function Footer({
+  openingHours,
+}: {
+  openingHours: OpeningHoursEntry[];
+}) {
   const { reset } = useCookieConsent();
 
   return (
@@ -58,9 +63,11 @@ export default function Footer() {
               Öffnungszeiten
             </h4>
             <div className="space-y-2.5 text-sm text-white/40">
-              <p>Mit Termin: 06:00 – 21:00</p>
-              <p>Mit & ohne Termin: 08:00 – 19:00</p>
-              <p>So: Geschlossen</p>
+              {openingHours.map((entry) => (
+                <p key={entry.id}>
+                  {entry.label}: {entry.value}
+                </p>
+              ))}
             </div>
           </div>
 

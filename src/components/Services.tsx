@@ -1,97 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import type { ServiceCategory, ServiceItem } from "@/lib/site-content";
 
-type ServiceCategory = "damen" | "herren" | "kosmetik" | "kinder";
-
-interface ServiceItem {
-  name: string;
-  prices?: string[];
-  price?: string;
-  note?: string;
+interface ServicesProps {
+  services: ServiceCategory[];
 }
 
-interface ServiceGroup {
-  title: string;
-  items: ServiceItem[];
-}
-
-const serviceData: Record<ServiceCategory, ServiceGroup[]> = {
-  damen: [
-    {
-      title: "Schnitt",
-      items: [
-        { name: "Trockenhaarschnitt", prices: ["20 €", "23 €", "25 €"] },
-        { name: "Waschen, Schneiden, Föhnen", prices: ["30 €", "34 €", "38 €"] },
-      ],
-    },
-    {
-      title: "Farbe",
-      items: [
-        { name: "Foliensträhnen", prices: ["35 €", "48 €", "70 €"] },
-        { name: "Balayage", price: "ab 160 €" },
-        { name: "Ansatz Farbe", price: "ab 30 €" },
-        { name: "Global Farbe", prices: ["36 €", "46 €", "70 €"] },
-      ],
-    },
-    {
-      title: "Styling & Specials",
-      items: [
-        { name: "Dauerwelle", prices: ["42 €", "65 €", "75 €"] },
-        { name: "Hochsteckfrisur", price: "Nach Absprache" },
-        { name: "Haarverlängerung", price: "Nach Absprache" },
-        { name: "Keratin-Glättung", price: "Nach Absprache" },
-      ],
-    },
-  ],
-  herren: [
-    {
-      title: "Schnitt",
-      items: [
-        { name: "Trockenhaarschnitt", price: "18 €" },
-        { name: "Waschen, Schneiden, Föhnen", price: "20 €" },
-      ],
-    },
-    {
-      title: "Bart & Farbe",
-      items: [
-        { name: "Bart Rasur", price: "12 €" },
-        { name: "Färben", price: "ab 20 €" },
-      ],
-    },
-  ],
-  kosmetik: [
-    {
-      title: "Augenbrauen & Gesicht",
-      items: [
-        { name: "Augenbrauen zupfen (mit Faden)", price: "8 €" },
-        { name: "Augenbrauen färben", price: "8 €" },
-        { name: "Gesichtshaarentfernung (mit Faden)", price: "10 €" },
-        { name: "Wimpern färben", price: "10 €" },
-      ],
-    },
-  ],
-  kinder: [
-    {
-      title: "Trockenhaarschnitt",
-      items: [
-        { name: "Jungen bis 12 Jahren", price: "14 €" },
-        { name: "Jungen bis 16 Jahren", price: "16 €" },
-        { name: "Mädchen bis 12 Jahren", price: "16 €" },
-        { name: "Mädchen bis 16 Jahren", price: "18 €" },
-      ],
-    },
-  ],
-};
-
-const tabs: { key: ServiceCategory; label: string }[] = [
-  { key: "damen", label: "Damen" },
-  { key: "herren", label: "Herren" },
-  { key: "kosmetik", label: "Kosmetik" },
-  { key: "kinder", label: "Kinder" },
-];
-
-function PriceRow({ item }: { item: ServiceItem }) {
+function PriceRow({
+  item,
+  lengthLabels,
+}: {
+  item: ServiceItem;
+  lengthLabels?: string[];
+}) {
   return (
     <div className="price-row group py-4 border-b border-gray-light/60 last:border-b-0">
       {item.prices ? (
@@ -109,7 +31,10 @@ function PriceRow({ item }: { item: ServiceItem }) {
           <div className="mt-2 flex gap-4 text-[0.8125rem] sm:hidden">
             {item.prices.map((p, i) => (
               <span key={i} className="font-medium text-black">
-                <span className="text-gray/50 text-[0.6875rem]">{["K", "M", "L"][i]} </span>{p}
+                <span className="text-gray/50 text-[0.6875rem]">
+                  {(lengthLabels?.[i] ?? ["K", "M", "L"][i] ?? `${i + 1}`)}{" "}
+                </span>
+                {p}
               </span>
             ))}
           </div>
@@ -128,8 +53,10 @@ function PriceRow({ item }: { item: ServiceItem }) {
   );
 }
 
-export default function Services() {
-  const [activeTab, setActiveTab] = useState<ServiceCategory>("damen");
+export default function Services({ services }: ServicesProps) {
+  const [activeTab, setActiveTab] = useState(services[0]?.id ?? "damen");
+  const activeCategory =
+    services.find((category) => category.id === activeTab) ?? services[0];
 
   return (
     <section id="preise" className="section-padding bg-cream">
@@ -143,13 +70,22 @@ export default function Services() {
 
         {/* Tabs */}
         <div className="mb-12 flex justify-center">
-          <div className="inline-flex rounded-full border border-gray-light bg-white p-1.5">
-            {tabs.map((tab) => (
+          <div
+            className="inline-flex max-w-full overflow-x-auto rounded-full border border-gray-light bg-white p-1.5"
+            role="tablist"
+            aria-label="Preiskategorien"
+          >
+            {services.map((tab) => (
               <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
+                key={tab.id}
+                id={`price-tab-${tab.id}`}
+                type="button"
+                role="tab"
+                aria-selected={activeCategory?.id === tab.id}
+                aria-controls={`price-panel-${tab.id}`}
+                onClick={() => setActiveTab(tab.id)}
                 className={`rounded-full px-7 py-2.5 text-xs font-semibold tracking-[0.1em] uppercase transition-all duration-300 ${
-                  activeTab === tab.key
+                  activeCategory?.id === tab.id
                     ? "bg-black text-white shadow-sm"
                     : "text-gray hover:text-black"
                 }`}
@@ -161,30 +97,44 @@ export default function Services() {
         </div>
 
         {/* Price Card */}
-        <div className="rounded-2xl border border-gray-light/60 bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] sm:p-10">
+        <div
+          id={activeCategory ? `price-panel-${activeCategory.id}` : undefined}
+          role="tabpanel"
+          aria-labelledby={activeCategory ? `price-tab-${activeCategory.id}` : undefined}
+          className="rounded-2xl border border-gray-light/60 bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] sm:p-10"
+        >
           {/* Length Legend for Damen */}
-          {activeTab === "damen" && (
+          {activeCategory?.lengthLabels && activeCategory.lengthLabels.length > 0 && (
             <div className="mb-6 hidden justify-end gap-6 border-b border-gray-light/60 pb-4 text-xs font-semibold tracking-wide text-gray sm:flex">
-              <span>Kurz</span>
-              <span>Mittel</span>
-              <span>Lang</span>
+              {activeCategory.lengthLabels.map((label) => (
+                <span key={label}>{label}</span>
+              ))}
             </div>
           )}
 
           {/* Service Groups */}
           <div className="space-y-8">
-            {serviceData[activeTab].map((group) => (
-              <div key={group.title}>
+            {activeCategory?.groups.map((group) => (
+              <div key={group.id}>
                 <h3 className="mb-2 text-[0.6875rem] font-semibold tracking-[0.25em] text-gold uppercase">
                   {group.title}
                 </h3>
                 <div>
                   {group.items.map((item) => (
-                    <PriceRow key={item.name} item={item} />
+                    <PriceRow
+                      key={item.id}
+                      item={item}
+                      lengthLabels={activeCategory.lengthLabels}
+                    />
                   ))}
                 </div>
               </div>
             ))}
+            {!activeCategory?.groups.length && (
+              <p className="py-8 text-center text-sm text-gray">
+                Für diese Kategorie sind aktuell keine Preise hinterlegt.
+              </p>
+            )}
           </div>
         </div>
 

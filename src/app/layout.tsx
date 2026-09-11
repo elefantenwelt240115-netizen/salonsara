@@ -96,106 +96,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${dmSans.variable} ${cinzel.variable} scroll-smooth`}>
+    <html
+      lang="de"
+      className={`${dmSans.variable} ${cinzel.variable} scroll-smooth`}
+      data-scroll-behavior="smooth"
+    >
       <head>
         <link rel="icon" href="/logo.png" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/logo.png" media="(prefers-color-scheme: dark)" />
         {/* Google Search Console – Platzhalter: Ersetze DEIN_CODE mit dem echten Verifizierungscode */}
         {/* <meta name="google-site-verification" content="DEIN_CODE" /> */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "HairSalon",
-              name: "Salon Sara",
-              image: "https://salonsara.de/images/team.jpg",
-              url: "https://salonsara.de",
-              telephone: "+4921224926647",
-              email: "salon.sara.sg@gmail.com",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Hauptstraße 39",
-                addressLocality: "Solingen",
-                postalCode: "42651",
-                addressCountry: "DE",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: 51.1714,
-                longitude: 7.0839,
-              },
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                  opens: "06:00",
-                  closes: "21:00",
-                },
-              ],
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "5.0",
-                reviewCount: "1000",
-                bestRating: "5",
-                worstRating: "1",
-              },
-              priceRange: "€€",
-              sameAs: [
-                "https://www.instagram.com/salon_s_sara/",
-                "https://www.tiktok.com/@salon_s._sara",
-                "https://www.facebook.com/100188862682787",
-              ],
-              hasOfferCatalog: {
-                "@type": "OfferCatalog",
-                name: "Friseur-Dienstleistungen",
-                itemListElement: [
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Damen Haarschnitt",
-                      description: "Waschen, Schneiden, Föhnen für Damen",
-                    },
-                    priceSpecification: {
-                      "@type": "PriceSpecification",
-                      price: "30.00",
-                      priceCurrency: "EUR",
-                      minPrice: "30.00",
-                      maxPrice: "38.00",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Herren Haarschnitt",
-                      description: "Waschen, Schneiden, Föhnen für Herren",
-                    },
-                    priceSpecification: {
-                      "@type": "PriceSpecification",
-                      price: "20.00",
-                      priceCurrency: "EUR",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Balayage",
-                      description: "Professionelle Balayage-Färbetechnik",
-                    },
-                    priceSpecification: {
-                      "@type": "PriceSpecification",
-                      price: "160.00",
-                      priceCurrency: "EUR",
-                    },
-                  },
-                ],
-              },
-            }),
-          }}
-        />
       </head>
       <body className="antialiased">
         <Providers>{children}</Providers>

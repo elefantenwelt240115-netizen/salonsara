@@ -18,6 +18,9 @@
 # production
 /build
 
+# local owner-dashboard content (production uses Redis)
+/.data/
+
 # misc
 .DS_Store
 *.pem

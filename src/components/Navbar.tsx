@@ -17,7 +17,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -29,7 +29,8 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        aria-label="Hauptnavigation"
+        className={`relative z-50 w-full transition-all duration-500 ${
           scrolled
             ? "bg-white/95 shadow-[0_1px_24px_rgba(0,0,0,0.06)] backdrop-blur-2xl"
             : "bg-transparent"
@@ -42,6 +43,7 @@ export default function Navbar() {
               alt="Salon Sara – Friseur Solingen"
               width={42}
               height={42}
+              priority
               className={`transition-all duration-500 ${scrolled ? "" : "brightness-0 invert"}`}
             />
           </a>
@@ -68,9 +70,11 @@ export default function Navbar() {
 
           {/* Elegant burger icon */}
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen((open) => !open)}
             className="relative z-[60] flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 lg:hidden"
-            aria-label="Menü"
+            aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
+            aria-controls="mobile-navigation"
+            aria-expanded={menuOpen}
           >
             <div className="flex h-5 w-6 flex-col justify-between">
               <span
@@ -94,6 +98,9 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
+        id="mobile-navigation"
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
         className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-warm-white transition-all duration-700 ease-[cubic-bezier(0.77,0,0.18,1)] lg:hidden ${
           menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}

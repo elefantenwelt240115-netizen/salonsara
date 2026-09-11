@@ -29,11 +29,15 @@ export function CookieConsentProvider({ children }: { children: React.ReactNode 
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "accepted" || stored === "rejected") {
-      setConsent(stored);
-    }
-    setMounted(true);
+    const frame = window.requestAnimationFrame(() => {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === "accepted" || stored === "rejected") {
+        setConsent(stored);
+      }
+      setMounted(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const accept = useCallback(() => {
