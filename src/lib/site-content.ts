@@ -495,6 +495,16 @@ function redisConfiguration(): RedisConfiguration | null {
   const kvToken = process.env.KV_REST_API_TOKEN?.trim();
   if (kvUrl && kvToken) return { url: kvUrl, token: kvToken };
 
+  // Vercel Marketplace prefixes Upstash's existing KV variable names when a
+  // custom resource prefix is selected during project connection.
+  const marketplaceUrl =
+    process.env.UPSTASH_REDIS_REST_KV_REST_API_URL?.trim();
+  const marketplaceToken =
+    process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN?.trim();
+  if (marketplaceUrl && marketplaceToken) {
+    return { url: marketplaceUrl, token: marketplaceToken };
+  }
+
   return null;
 }
 
