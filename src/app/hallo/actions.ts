@@ -98,6 +98,10 @@ export async function saveContentAction(formData: FormData) {
     await saveSiteContent(parsedContent, expectedRevision);
   } catch (error) {
     if (error instanceof SiteContentConflictError) {
+      console.warn("[owner-content] Revision conflict", {
+        expectedRevision: error.expectedRevision,
+        actualRevision: error.actualRevision,
+      });
       redirectToLogin("conflict");
     }
 

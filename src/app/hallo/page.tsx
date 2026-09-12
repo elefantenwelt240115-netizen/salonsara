@@ -42,7 +42,7 @@ const dashboardNotices: Record<
   conflict: {
     tone: "error",
     message:
-      "Die Seite wurde an anderer Stelle geändert. Bitte laden Sie die Seite neu, bevor Sie weiterarbeiten.",
+      "Eine neuere gespeicherte Version wurde geladen. Prüfen Sie kurz, ob Ihre Änderung bereits übernommen wurde. Falls nicht, führen Sie sie erneut aus und speichern Sie noch einmal.",
   },
   "invalid-content": {
     tone: "error",
@@ -65,6 +65,7 @@ export default async function HalloPage({ searchParams }: HalloPageProps) {
     const content = await getSiteContent();
     return (
       <OwnerDashboard
+        key={content.revision}
         initialContent={content}
         lastUpdatedLabel={updatedAtFormatter.format(new Date(content.updatedAt))}
         notice={status ? dashboardNotices[status] : null}
