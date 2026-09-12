@@ -36,11 +36,11 @@ const dashboardNotices: Record<
   conflict: {
     tone: "error",
     message:
-      "Zwischenzeitlich wurde eine neuere Version gespeichert. Bitte lade die Seite neu und trage deine Änderung noch einmal ein.",
+      "Die Seite wurde an anderer Stelle geändert. Bitte laden Sie die Seite neu, bevor Sie weiterarbeiten.",
   },
   "invalid-content": {
     tone: "error",
-    message: "Ein Feld ist ungültig oder zu lang. Prüfe die Eingaben und versuche es erneut.",
+    message: "Eine Eingabe fehlt oder ist zu lang. Bitte prüfen Sie die markierten Felder.",
   },
   storage: {
     tone: "error",
@@ -91,39 +91,40 @@ export default async function HalloPage({ searchParams }: HalloPageProps) {
         </div>
 
         <div className="relative max-w-xl border-l border-gold pl-8">
-          <p className="text-sm leading-7 text-white/45">Interner Besitzerbereich</p>
-          <h1 className="mt-3 text-5xl font-bold leading-[1.08] tracking-tight text-white">
+          <p className="text-sm leading-7 text-white/65">Interner Besitzerbereich</p>
+          <p className="mt-3 text-5xl font-bold leading-[1.08] tracking-tight text-white">
             Preise und Hinweise selbst pflegen.
-          </h1>
-          <p className="mt-6 max-w-md text-base leading-7 text-white/55">
+          </p>
+          <p className="mt-6 max-w-md text-base leading-7 text-white/70">
             Änderungen werden zentral gespeichert und direkt auf der Salonseite angezeigt.
           </p>
         </div>
 
-        <p className="relative text-xs text-white/25">Nur für den Inhaber bestimmt.</p>
+        <p className="relative text-sm text-white/60">Nur für den Inhaber bestimmt.</p>
       </section>
 
       <section className="flex min-h-screen items-center justify-center bg-warm-white px-5 py-12 sm:px-10">
         <div className="w-full max-w-md">
           <div className="mb-10 flex items-center justify-between lg:hidden">
             <Image src="/logo.png" alt="Salon Sara" width={46} height={46} />
-            <Link href="/" className="text-sm text-black/50 transition hover:text-gold-dark">
+            <Link href="/" className="text-sm text-black/65 transition hover:text-gold-dark">
               Zur Website
             </Link>
           </div>
 
           <p className="text-sm font-semibold text-gold-dark">Besitzerbereich</p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-black">Anmelden</h2>
-          <p className="mt-3 text-sm leading-6 text-black/50">
-            Melde dich an, um Preise, Öffnungszeiten und den oberen Hinweisbanner zu bearbeiten.
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-black">Anmelden</h1>
+          <p className="mt-3 text-base leading-7 text-black/65">
+            Melden Sie sich an, um Preise, Öffnungszeiten und den Hinweis oben auf der Website zu
+            bearbeiten.
           </p>
 
           {(loginFailed || sessionExpired || configurationMissing) && (
-            <div className="mt-7 border-l-4 border-[#8a3048] bg-[#f7e9ed] px-4 py-3 text-sm text-[#6f263d]" role="alert">
+            <div className="mt-7 border-l-4 border-[#8a3048] bg-[#f7e9ed] px-5 py-4 text-base leading-6 text-[#6f263d]" role="alert">
               {configurationMissing
-                ? "Die Anmeldung ist serverseitig noch nicht vollständig konfiguriert."
+                ? "Die Anmeldung ist noch nicht vollständig eingerichtet. Bitte wenden Sie sich an die Person, die die Website betreut."
                 : sessionExpired
-                  ? "Deine Anmeldung ist abgelaufen. Bitte melde dich erneut an."
+                  ? "Ihre Anmeldung ist abgelaufen. Bitte melden Sie sich erneut an."
                   : "Benutzername oder Passwort ist nicht korrekt."}
             </div>
           )}
@@ -158,13 +159,13 @@ export default async function HalloPage({ searchParams }: HalloPageProps) {
               type="submit"
               className="mt-2 min-h-12 w-full bg-black px-5 py-3.5 text-sm font-bold text-white transition hover:bg-gold-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             >
-              Sicher anmelden
+              Anmelden
             </button>
           </form>
 
           <Link
             href="/"
-            className="mt-8 hidden text-sm text-black/45 underline decoration-black/20 underline-offset-4 transition hover:text-gold-dark lg:inline-block"
+            className="mt-8 hidden text-sm text-black/65 underline decoration-black/30 underline-offset-4 transition hover:text-gold-dark lg:inline-block"
           >
             Zurück zur Website
           </Link>
