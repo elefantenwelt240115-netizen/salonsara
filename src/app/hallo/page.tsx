@@ -25,6 +25,12 @@ type HalloPageProps = {
   searchParams: Promise<{ status?: string | string[] }>;
 };
 
+const updatedAtFormatter = new Intl.DateTimeFormat("de-DE", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "Europe/Berlin",
+});
+
 const dashboardNotices: Record<
   string,
   { tone: "success" | "error"; message: string }
@@ -60,6 +66,7 @@ export default async function HalloPage({ searchParams }: HalloPageProps) {
     return (
       <OwnerDashboard
         initialContent={content}
+        lastUpdatedLabel={updatedAtFormatter.format(new Date(content.updatedAt))}
         notice={status ? dashboardNotices[status] : null}
       />
     );
@@ -129,7 +136,7 @@ export default async function HalloPage({ searchParams }: HalloPageProps) {
             </div>
           )}
 
-          <form action={loginAction} className="mt-8 space-y-5">
+          <form action={loginAction} className="mt-8 space-y-5" noValidate>
             <label className="block text-sm font-semibold text-black">
               Benutzername
               <input

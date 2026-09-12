@@ -424,7 +424,7 @@ function parseAnnouncement(value: unknown, pathName: string): Announcement {
     allowEmpty: !enabled,
   });
   const message = sanitizePlainText(object.message, `${pathName}.message`, 1_200, {
-    allowEmpty: !enabled,
+    allowEmpty: true,
     multiline: true,
   });
   const ctaLabel = readOptionalText(object, "ctaLabel", pathName, 60);
@@ -518,7 +518,11 @@ function redisClient(): Redis | null {
   if (cachedRedis?.signature !== signature) {
     cachedRedis = {
       signature,
-      client: new Redis(configuration),
+      client: new Redis({
+        ...configuration,
+        retry: { retries: 1 },
+        signal: () => AbortSignal.timeout(8_000),
+      }),
     };
   }
 

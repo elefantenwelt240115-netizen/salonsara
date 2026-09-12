@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { useFormStatus } from "react-dom";
+import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import type {
@@ -19,7 +18,25 @@ const smallButtonClass =
 
 interface OwnerDashboardProps {
   initialContent: SiteContent;
+  lastUpdatedLabel: string;
   notice?: { tone: "success" | "error"; message: string } | null;
+}
+
+type ValidatableControl = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
+function isValidatableControl(target: EventTarget): target is ValidatableControl {
+  return (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement
+  );
+}
+
+function isConnectionError(error: unknown) {
+  return (
+    error instanceof TypeError ||
+    (error instanceof Error && /failed to fetch|network|connection|timeout/i.test(error.message))
+  );
 }
 
 function makeId(prefix: string) {
@@ -27,16 +44,14 @@ function makeId(prefix: string) {
   return `${prefix}-${suffix}`.replace(/[^a-zA-Z0-9_-]/g, "");
 }
 
-function SubmitButton({ dirty }: { dirty: boolean }) {
-  const { pending } = useFormStatus();
-
+function SubmitButton({ dirty, saving }: { dirty: boolean; saving: boolean }) {
   return (
     <button
       type="submit"
-      disabled={pending || !dirty}
+      disabled={saving || !dirty}
       className="inline-flex min-h-12 w-full items-center justify-center bg-gold px-7 py-3 text-base font-bold text-white transition hover:bg-gold-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold disabled:cursor-not-allowed disabled:bg-black/20 sm:w-auto"
     >
-      {pending ? "Wird gespeichert …" : dirty ? "Änderungen speichern" : "Alles gespeichert"}
+      {saving ? "Wird gespeichert …" : dirty ? "Änderungen speichern" : "Alles gespeichert"}
     </button>
   );
 }
@@ -82,9 +97,16 @@ function getBannerStatus(
 
 export default function OwnerDashboard({
   initialContent,
+  lastUpdatedLabel,
   notice,
 }: OwnerDashboardProps) {
   const [content, setContent] = useState(initialContent);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const contentFormRef = useRef<HTMLFormElement>(null);
+  const bannerTitleRef = useRef<HTMLInputElement>(null);
+  const ctaLabelRef = useRef<HTMLInputElement>(null);
+  const ctaUrlRef = useRef<HTMLInputElement>(null);
   const [optionalLinkOpen, setOptionalLinkOpen] = useState(() =>
     Boolean(
       initialContent.announcement.ctaLabel?.trim() ||
@@ -114,6 +136,37 @@ export default function OwnerDashboard({
     window.addEventListener("beforeunload", warnAboutUnsavedChanges);
     return () => window.removeEventListener("beforeunload", warnAboutUnsavedChanges);
   }, [dirty]);
+
+  useEffect(() => {
+    if (!content.announcement.enabled) {
+      bannerTitleRef.current?.setCustomValidity("");
+    }
+  }, [content.announcement.enabled]);
+
+  useEffect(() => {
+    if (!ctaIsInUse) {
+      ctaLabelRef.current?.setCustomValidity("");
+      ctaUrlRef.current?.setCustomValidity("");
+    }
+  }, [ctaIsInUse]);
+
+  async function saveContent(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSaveError(null);
+    setSaving(true);
+
+    try {
+      await saveContentAction(new FormData(event.currentTarget));
+    } catch (error) {
+      if (!isConnectionError(error)) throw error;
+
+      setSaveError(
+        "Speichern war wegen der Internetverbindung nicht möglich. Ihre Eingaben sind noch da – bitte versuchen Sie es erneut.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
 
   function updateHour(index: number, patch: Partial<OpeningHoursEntry>) {
     setContent((current) => ({
@@ -376,6 +429,10 @@ export default function OwnerDashboard({
   function discardChanges() {
     if (!dirty) return;
     if (!window.confirm("Alle Änderungen seit dem letzten Speichern verwerfen?")) return;
+    contentFormRef.current
+      ?.querySelectorAll<ValidatableControl>("input, textarea, select")
+      .forEach((control) => control.setCustomValidity(""));
+    setSaveError(null);
     setContent(initialContent);
   }
 
@@ -441,7 +498,7 @@ export default function OwnerDashboard({
             </p>
           </div>
           <p className="text-sm text-black/65">
-            Zuletzt gespeichert: {new Date(content.updatedAt).toLocaleString("de-DE")}
+            Zuletzt gespeichert: {lastUpdatedLabel}
           </p>
         </div>
 
@@ -486,9 +543,21 @@ export default function OwnerDashboard({
         ) : null}
 
         <form
-          action={saveContentAction}
+          ref={contentFormRef}
+          onSubmit={saveContent}
+          onInput={(event) => {
+            if (isValidatableControl(event.target)) {
+              event.target.setCustomValidity("");
+            }
+            if (saveError) setSaveError(null);
+          }}
           onInvalid={(event) => {
             const target = event.target;
+            if (isValidatableControl(target) && target.validity.valueMissing) {
+              target.setCustomValidity(
+                target.dataset.validationMessage ?? "Bitte füllen Sie dieses Feld aus.",
+              );
+            }
             if (!(target instanceof HTMLElement)) return;
             const details = target.closest("details");
             if (!details) return;
@@ -575,10 +644,12 @@ export default function OwnerDashboard({
               <label className="text-base font-semibold">
                 Überschrift im Banner
                 <input
+                  ref={bannerTitleRef}
                   className={`${fieldClass} mt-2`}
                   value={content.announcement.title ?? ""}
                   maxLength={100}
                   required={content.announcement.enabled}
+                  data-validation-message="Bitte geben Sie eine Überschrift für den Banner ein."
                   placeholder="z. B. Sommeraktion"
                   onChange={(event) =>
                     setContent((current) => ({
@@ -590,12 +661,11 @@ export default function OwnerDashboard({
               </label>
 
               <label className="text-base font-semibold md:col-span-2">
-                Text im Banner
+                Zusätzlicher Text (optional)
                 <textarea
                   className={`${fieldClass} mt-2 min-h-28 resize-y`}
                   value={content.announcement.message}
                   maxLength={500}
-                  required={content.announcement.enabled}
                   placeholder="z. B. Vom 12. bis 18. August machen wir Urlaub."
                   onChange={(event) =>
                     setContent((current) => ({
@@ -604,6 +674,9 @@ export default function OwnerDashboard({
                     }))
                   }
                 />
+                <span className="mt-2 block text-sm font-normal leading-6 text-black/65">
+                  Die Überschrift reicht aus. Dieses Feld können Sie leer lassen.
+                </span>
               </label>
 
               <details
@@ -623,6 +696,7 @@ export default function OwnerDashboard({
                   <label className="text-base font-semibold">
                     Text auf der Schaltfläche
                     <input
+                      ref={ctaLabelRef}
                       className={`${fieldClass} mt-2`}
                       value={content.announcement.ctaLabel ?? ""}
                       maxLength={60}
@@ -640,6 +714,7 @@ export default function OwnerDashboard({
                   <label className="text-base font-semibold">
                     Wohin soll die Schaltfläche führen?
                     <input
+                      ref={ctaUrlRef}
                       className={`${fieldClass} mt-2`}
                       value={content.announcement.ctaUrl ?? ""}
                       maxLength={500}
@@ -982,12 +1057,16 @@ export default function OwnerDashboard({
           <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/15 bg-[#fffdf9]/95 px-5 py-4 shadow-[0_-10px_35px_rgba(30,24,18,0.08)] backdrop-blur sm:px-8">
             <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p
-                className={`text-base font-semibold ${dirty ? "text-[#7d5222]" : "text-[#2f654b]"}`}
-                aria-live="polite"
+                className={`text-base font-semibold ${
+                  saveError ? "text-[#7d2941]" : dirty ? "text-[#7d5222]" : "text-[#2f654b]"
+                }`}
+                aria-live="assertive"
+                role={saveError ? "alert" : "status"}
               >
-                {dirty
-                  ? "Noch nicht gespeichert – bitte jetzt speichern."
-                  : "✓ Alles ist gespeichert."}
+                {saveError ??
+                  (dirty
+                    ? "Noch nicht gespeichert – bitte jetzt speichern."
+                    : "✓ Alles ist gespeichert.")}
               </p>
               <div className="flex w-full flex-col-reverse gap-2 sm:w-auto sm:flex-row">
                 {dirty ? (
@@ -999,7 +1078,7 @@ export default function OwnerDashboard({
                     Änderungen verwerfen
                   </button>
                 ) : null}
-                <SubmitButton dirty={dirty} />
+                <SubmitButton dirty={dirty} saving={saving} />
               </div>
             </div>
           </div>
